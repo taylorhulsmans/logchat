@@ -52,8 +52,21 @@
          {{url}}
          </a>
        </v-card-title>
-       <div class="text--primary">{{content}}</div>
-
+       <div class="pa-3 text--primary">{{content}}</div>
+       <v-divider></v-divider>
+       <br />
+       <v-row
+         v-for="(comment, i) in comments.filter((comment) => {
+         return comment.replyId ==='0x0000000000000000000000000000000000000000000000000000000000000000'
+         })"
+         :key="i">
+         <v-col
+           class="pa-0"
+           @click="jumpTo(comment.id)"
+           >
+           <p class="pa-0 ma-0 blue--text text-decoration-underline">>>{{comment.id}}</p>
+         </v-col>
+       </v-row>
        </v-card>
      </v-col>
   </v-row>
@@ -81,10 +94,46 @@
          <v-divider> </v-divider>
          <v-card-subtitle
            class="text-center">
-
            id: {{comment.id}}
          </v-card-subtitle>
-       <div class="text--primary">{{comment.content}}</div>
+         <v-card-subtitle
+           class="text-center">
+           Replying To: {{comment.replyId}}
+         </v-card-subtitle>
+         <v-divider> </v-divider>
+       <div 
+          :ref="comment.id"
+         class="pa-3 text--primary">{{comment.content}}</div>
+       <v-divider
+         ></v-divider>
+       <br />
+       <v-row
+         v-for="(reply, i) in comments.filter((com) => {
+         return com.replyId === comment.id
+         })"
+         :key="i">
+         <v-col
+           class="pa-0"
+           @click="jumpTo(comment.id)"
+           >
+           <p class="pa-0 ma-0 blue--text text-decoration-underline">>>{{reply.id}}</p>
+         </v-col>
+       </v-row>
+       <br />
+       <v-divider></v-divider>
+       <v-card-actions>
+         <v-btn
+           outlined
+           @click="comment.showReplyBox = !comment.showReplyBox"
+           class="ma-2"
+           color="green">
+           Reply
+         </v-btn>
+       </v-card-actions>
+         <CreateComment
+           v-if="comment.showReplyBox"
+           :threadId="threadId"
+           :replyId="comment.id" />
 
        </v-card>
      </v-col>
@@ -125,6 +174,7 @@ export default {
   },
   data: () => ({
     showCommentBox: false,
+    showReplyBox: false,
     threadId: null,
     title: null,
     content: null,
@@ -139,7 +189,11 @@ export default {
     this.creator = thread[0].creator
     this.title = thread[0].title
     this.content = thread[0].content
-    this.comments = thread[1]
+
+    this.comments = thread[1].map((com) => {
+      com.showReplyBox = false
+      return com
+    })
     console.log(this.comments)
     const contract = await HCService.getInstance()
     await contract.events.Comment({
@@ -154,16 +208,7 @@ export default {
           threadId: event.returnValues.threadId,
           replyId: event.returnValues.replyId
         }
-        
-        if (comment.replyId === '0x0000000000000000000000000000000000000000000000000000000000000000') {
           this.comments.push(comment)
-        } else {
-          const repliedTo = this.comments.find((oldComments) => {
-            return oldComments.id === comment.replyId
-          })
-          console.log(repliedTo)
-          console.log(this.comments[repliedTo])
-        }
       } else {
         console.log(err)
       }
@@ -183,6 +228,10 @@ export default {
 
   },
   methods: {
+    jumpTo(commentId) {
+      const element = this.$refs[commentId]
+      element[0].scrollIntoView({behavior: "smooth"})
+  },
   }
 }
 </script>

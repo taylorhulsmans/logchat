@@ -44,7 +44,7 @@ import * as HCService from '@/shared/HCService.js'
 export default {
   props: {
     threadId: String,
-    replyTo: String,
+    replyId: String,
   },
   data: () => ({
     fail: false,
@@ -61,9 +61,10 @@ export default {
     async postComment() {
       if (this.valid) {
         this.mining = true;
+        console.log(this.replyId)
         const commentTx = await HCService.createComment(
           this.threadId,
-          this.replyTo ? this.replyTo : HCService.getBytes32FromString(''),
+          this.replyId ? this.replyId : HCService.getBytes32FromString(''),
           this.content
         );
         console.log(commentTx)
