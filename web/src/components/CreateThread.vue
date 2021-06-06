@@ -97,7 +97,7 @@ export default {
           this.title,
           this.content
         );
-        console.log(threadTx)
+        console.log('threadtx', threadTx)
         if (threadTx.transactionHash) {
           this.success = true
           this.link =  threadTx.events.Thread.returnValues.id

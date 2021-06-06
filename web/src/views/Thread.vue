@@ -184,10 +184,12 @@ export default {
   }),
   async created() {
     const thread = await HCService.getThread(this.$route.params.id)
+    console.log(thread)
     this.threadId = thread[0].id
     this.url = thread[0].url
     this.creator = thread[0].creator
     this.title = thread[0].title
+    console.log(thread[0].content)
     this.content = thread[0].content
 
     this.comments = thread[1].map((com) => {

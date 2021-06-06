@@ -4,12 +4,17 @@ import Web3 from 'web3'
 export async function getInstance() {
   try {
     const web3 = new Web3(window.ethereum)
-    const networkId = await web3.eth.net.getId()
-
+    const networkId = await web3.eth.net.getId() 
     return await new web3.eth.Contract(HashedComments.abi, HashedComments.networks[networkId].address)
   } catch (e) {
     return e
   }
+}
+
+export async function getContractAddr() {
+  const web3 = new Web3(window.ethereum)
+  const networkId = await web3.eth.net.getId()
+  return HashedComments.networks[networkId].address
 }
 export function getBytes32FromString(str) {
   try {
@@ -118,10 +123,10 @@ export async function getThread(threadId) {
   await contract.getPastEvents('Thread', {
     fromBlock: 'earliest',
     toBlock: 'latest',
-    filter: {threadId: threadId}
+    filter: {id: threadId}
   }, (err, result) => {
     if (!err) {
-      console.log(result[0])
+      console.log(result)
       thread = {
         creator: result[0].returnValues.creator,
         id: result[0].returnValues.id,

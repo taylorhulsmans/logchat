@@ -1,5 +1,13 @@
 <template>
   <v-app>
+    <v-system-bar
+      window
+      dark
+      app
+      height="33">
+      <v-icon>mdi-alert</v-icon>
+      <span>HashedComments is Beta, please use at your own risk</span>
+    </v-system-bar>
     <v-app-bar
       absolute
       app
@@ -23,15 +31,23 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
+      <v-btn
+        icon
+        href="https://github.com/Joe-mcgee/Hashed-Comments"
+        target="_blank">
+        <v-icon>mdi-github</v-icon>
       </v-btn>
 
-      <v-btn icon>
+      <v-btn
+        icon
+        :href="etherscan"
+        target="_blank">
         <v-icon>mdi-cube-scan</v-icon>
       </v-btn>
 
-      <v-btn icon>
+      <v-btn
+        icon
+        href="/how-to">
         <v-icon>mdi-note-search-outline</v-icon>
       </v-btn>
 
@@ -55,13 +71,18 @@
 </template>
 
 <script>
-
+import * as HCService from '@/shared/HCService.js'
 export default {
   name: 'App',
 
   data: () => ({
+    etherscan: '',
     //
   }),
+  async created() {
+    const address = await HCService.getContractAddr()
+    this.etherscan = `https://etherscan.io/address/${address}`
+  }
 };
 </script>
 <style>
