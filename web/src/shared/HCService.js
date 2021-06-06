@@ -207,3 +207,56 @@ export async function createComment(
     return e
   }
 }
+
+export async function getMyWork() {
+  const addresses = await getAccounts()
+  const contract = await getInstance()
+  try {
+    console.log(addresses[0])
+    const myThreadEvents = await contract.getPastEvents("Thread", {
+      fromBlock: 'earliest',
+      toBlock: 'latest',
+      filter: {creator: addresses[0]}
+    }, (err, result) => {
+      if (err) {
+        console.log(err)
+        return err
+      } else {
+        console.log(result)
+        return result
+      }
+    })
+    const myCommentEvents = await contract.getPastEvents("Comment", {
+      fromBlock: 'earliest',
+      toBlock: 'latest',
+      filter: {creator: addresses[0]}
+    }, (err, result) => {
+      if (err) {
+        return err
+      } else {
+        return result
+      }
+    })
+    const myThreads = myThreadEvents.map((event) => {
+      console.log(event)
+      return {
+        postType: 'Thread',
+        threadId: event.returnValues.id,
+        title: event.returnValues.title
+      }
+    })
+    const myComments = myCommentEvents.map((event) => {
+      return {
+        postType: 'Comment',
+        threadId: event.returnValues.threadId
+      }
+    })
+    return {
+      myThreads,
+      myComments
+    }
+
+  } catch (e) {
+    return e
+  }
+}
