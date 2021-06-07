@@ -126,7 +126,6 @@ export async function getThread(threadId) {
     filter: {id: threadId}
   }, (err, result) => {
     if (!err) {
-      console.log(result)
       thread = {
         creator: result[0].returnValues.creator,
         id: result[0].returnValues.id,
@@ -198,8 +197,6 @@ export async function createComment(
   const instance = await getInstance()
   
   try {
-    console.log(threadId)
-    console.log(replyId)
   return await instance.methods.createComment(
     threadId,
     replyId,
@@ -217,7 +214,6 @@ export async function getMyWork() {
   const addresses = await getAccounts()
   const contract = await getInstance()
   try {
-    console.log(addresses[0])
     const myThreadEvents = await contract.getPastEvents("Thread", {
       fromBlock: 'earliest',
       toBlock: 'latest',
@@ -227,7 +223,6 @@ export async function getMyWork() {
         console.log(err)
         return err
       } else {
-        console.log(result)
         return result
       }
     })
@@ -243,7 +238,6 @@ export async function getMyWork() {
       }
     })
     const myThreads = myThreadEvents.map((event) => {
-      console.log(event)
       return {
         postType: 'Thread',
         threadId: event.returnValues.id,

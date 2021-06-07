@@ -105,7 +105,7 @@
         },
         {
           text: 'Litepaper',
-          href: '/litepaper',
+          href: '/about',
         },
         {
           text: 'Github',
@@ -130,7 +130,7 @@
           href: 'https://ethereum.org/en/get-eth/',
         },
         {
-          text: 'Contribute',
+          text: 'Basic Usage',
           href: '/how-to',
         },
       ],

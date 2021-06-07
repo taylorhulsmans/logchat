@@ -184,19 +184,16 @@ export default {
   }),
   async created() {
     const thread = await HCService.getThread(this.$route.params.id)
-    console.log(thread)
     this.threadId = thread[0].id
     this.url = thread[0].url
     this.creator = thread[0].creator
     this.title = thread[0].title
-    console.log(thread[0].content)
     this.content = thread[0].content
 
     this.comments = thread[1].map((com) => {
       com.showReplyBox = false
       return com
     })
-    console.log(this.comments)
     const contract = await HCService.getInstance()
     await contract.events.Comment({
       fromBlock: 'earliest',
@@ -208,7 +205,8 @@ export default {
           creator: event.returnValues.creator,
           id: event.returnValues.id,
           threadId: event.returnValues.threadId,
-          replyId: event.returnValues.replyId
+          replyId: event.returnValues.replyId,
+          showReplyBox: false
         }
           this.comments.push(comment)
       } else {
