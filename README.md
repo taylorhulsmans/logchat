@@ -1,6 +1,10 @@
 # Hashed Comments
 Comment Sections that are Uncensorable, Consistent, and Pricer to AI ChatBot Swarm.
 
+## Basic Usage
+![how-to-use](https://github.com/Joe-mcgee/Hashed-Comments/blob/master/web/src/assets/Basic-usage.gif)
+
+
 ## Development
 Req's
 - node
