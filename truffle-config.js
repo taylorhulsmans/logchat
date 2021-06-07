@@ -1,3 +1,4 @@
+require('dotenv').config()
 /**
  * Use this file to configure your truffle project. It's seeded with some
  * common settings for different networks and features like migrations,
@@ -23,7 +24,8 @@
 //
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
-
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+const memnonic = process.env.MEMNONIC.toString()
 module.exports = {
   /**
    * Networks define how you connect to your ethereum client and let you set the
@@ -48,6 +50,22 @@ module.exports = {
       port: 8545,            // Standard Ethereum port (default: none)
       network_id: "*",       // Any network (default: none)
      },
+			ropsten: {
+				provider: () => new HDWalletProvider(memnonic, `https://ropsten.infura.io/v3/${process.env.INFURA_KEY}`),
+				network_id: 3,
+				gas: 5500000,
+				confirmations: 2,
+				timeoutBlocks: 200,
+				skipDryRun: true
+			},
+
+			"mainnet-infura": {
+				provider: () => new HDWalletProvider(memnonic, `https://mainnet.infura.io/v3/${process.env.INFURA_KEY}`),
+				network_id: 1,
+				gas: 3000000,
+				gasPrice: 6180339000
+
+			}
     // Another network with more advanced options...
     // advanced: {
     // port: 8777,             // Custom port
