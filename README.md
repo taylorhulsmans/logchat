@@ -8,6 +8,7 @@ Req's
 - truffle
 - metamask
 
+Setup
 - Clone Project
 - cd project, npm install
 - cd web, npm install
