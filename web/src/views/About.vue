@@ -25,6 +25,11 @@
   <br />
   <br />
   <v-img
+    :src="require('@/assets/youtube-revenue-fundementals-uncorrelated.jpg')"
+    ></v-img>
+  <br />
+  <br />
+  <v-img
     :src="require('@/assets/eisenhower.jpg')"
     ></v-img>
   <br />
