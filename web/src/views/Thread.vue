@@ -48,7 +48,7 @@
          >
        <v-card-title
          class="text-center">
-         <a :href="'//' + url" target="_blank">
+         <a :href="genUrl(url)" target="_blank">
          {{url}}
          </a>
        </v-card-title>
@@ -232,6 +232,13 @@ export default {
       const element = this.$refs[commentId]
       element[0].scrollIntoView({behavior: "smooth"})
   },
+    genUrl(url) {
+      console.log(url)
+      if (/^http/.test(url)) {
+        return url
+      } else 
+      return '//' + url
+    }
   }
 }
 </script>
