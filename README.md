@@ -1,5 +1,6 @@
 # Hashed Comments
-Comment Sections that are Uncensorable, Consistent, and Pricer to AI ChatBot Swarm.
+Comment Sections that are Uncensorable, Consistent, and Pricier to AI ChatBot Swarm.
+
 live at https://etherscan.io/address/0xE53348b65fe575C561F47ce79Bf2C55E07881bba
 ## Basic Usage
 ![how-to-use](https://github.com/Joe-mcgee/Hashed-Comments/blob/master/web/src/assets/Basic-usage.gif)
