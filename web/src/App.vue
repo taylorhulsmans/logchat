@@ -30,7 +30,16 @@
       <v-app-bar-title>Hashed Comments</v-app-bar-title>
 
       <v-spacer></v-spacer>
-
+      <v-chip
+        class="ma-2"
+        outlined
+        pill
+        text-color="white">
+        <v-icon left>
+          mdi-link-lock
+        </v-icon>
+        {{currentNetwork}}
+      </v-chip>
       <v-btn
         icon
         href="https://github.com/Joe-mcgee/Hashed-Comments"
@@ -77,9 +86,18 @@ export default {
 
   data: () => ({
     etherscan: '',
+    currentNetwork: '',
     //
   }),
   async created() {
+    this.currentNetwork = await HCService.getCurrentNetwork()
+  try {
+    window.ethereum.on('chainChanged', async (chainId)  => {
+      this.currentNetwork = await HCService.getCurrentNetwork(chainId)
+    })
+  } catch (e) {
+    console.log(e)
+  }
     const address = await HCService.getContractAddr()
     this.etherscan = `https://etherscan.io/address/${address}`
   }

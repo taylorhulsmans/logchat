@@ -1,9 +1,9 @@
 import HashedComments from '@/assets/build/HashedComments.json'
 import Web3 from 'web3'
+const web3 = new Web3(window.ethereum)
 
 export async function getInstance() {
   try {
-    const web3 = new Web3(window.ethereum)
     const networkId = await web3.eth.net.getId() 
     return await new web3.eth.Contract(HashedComments.abi, HashedComments.networks[networkId].address)
   } catch (e) {
@@ -12,13 +12,36 @@ export async function getInstance() {
 }
 
 export async function getContractAddr() {
-  const web3 = new Web3(window.ethereum)
-  const networkId = await web3.eth.net.getId()
-  return HashedComments.networks[networkId].address
+  try {
+
+    const networkId = await web3.eth.net.getId()
+    return HashedComments.networks[networkId].address
+  } catch (e) {
+    return e
+  }
+}
+
+export async function getCurrentNetwork(chainId) {
+  let id;
+  if (chainId) {
+   id = web3.utils.hexToNumberString(chainId)
+  } else {
+    id = window.ethereum.networkVersion
+  }
+  console.log(id)
+  switch (id) {
+    case '1':
+      return 'Ethereum';
+    case '56':
+      return 'BSC';
+    case '1337':
+      return 'Dev';
+    default:
+      return 'Unsupported'
+  }
 }
 export function getBytes32FromString(str) {
   try {
-    const web3 = new Web3(window.ethereum)
     return web3.utils.asciiToHex(str)
   } catch (e) {
     return e

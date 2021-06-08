@@ -14,6 +14,7 @@ window.addEventListener('load', async function () {
     console.log(e)
   }
 })
+
 Vue.prototype.$vueEventBus = new Vue();
 new Vue({
   router,

@@ -65,7 +65,15 @@ module.exports = {
 				gas: 3000000,
 				gasPrice: 21180339000
 
-			}
+      },
+    'bsc': {
+      provider: () => new HDWalletProvider(memnonic, 'https://bsc-dataseed1.binance.org'),
+      network_id: 56,
+      confirmations: 10,
+      timeoutBlocks: 200,
+      gas: 3000000,
+      gasPrice: 21180339000
+    }
     // Another network with more advanced options...
     // advanced: {
     // port: 8777,             // Custom port

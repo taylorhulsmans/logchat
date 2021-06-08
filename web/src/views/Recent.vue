@@ -30,6 +30,17 @@ export default {
       thread.hover = false
       return thread
     })
+    try {
+      window.ethereum.on('chainChanged', async ()  => {
+        const threadsFromService= await HCService.getThreads()
+        this.threads = threadsFromService.map((thread) => {
+          thread.hover = false
+          return thread
+        })
+      })
+    } catch (e) {
+      console.log(e)
+    }
   },
   methods: {
     handleClick(val) {

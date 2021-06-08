@@ -80,6 +80,7 @@
 </template>
 
 <script>
+import * as HCService from '@/shared/HCService.js'
   export default {
     name: 'HelloWorld',
 
@@ -100,20 +101,16 @@
       ],
       importantLinks: [
         {
-          text: 'Documentation',
-          href: '/docs',
-        },
-        {
           text: 'Litepaper',
           href: '/about',
         },
         {
           text: 'Github',
-          href: 'https://github.com/joe-mcgee/hashedcomments',
+          href: 'https://github.com/joe-mcgee/hashed-comments',
         },
         {
           text: 'Etherscan',
-          href: 'https://etherscan.io/address/0x3bE057bBAF734770c8a4CA81e2Abbdc29deb39F0',
+          href: ``,
         },
       ],
       whatsNext: [
@@ -134,6 +131,11 @@
           href: '/how-to',
         },
       ],
+      contractAddr: ''
     }),
+    async created() {
+      const contractAddr = await HCService.getContractAddr()
+      this.importantLinks[2].href = `https://etherscan.io/address/${contractAddr}`
+    }
   }
 </script>

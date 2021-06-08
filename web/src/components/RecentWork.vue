@@ -27,7 +27,17 @@ export default {
     const myWork = await HCService.getMyWork()
     this.posts.push(...myWork.myThreads)
     this.posts.push(...myWork.myComments)
-    console.log(this.posts)
+
+    try {
+      window.ethereum.on('chainChanged', async ()  => {
+        const myWork = await HCService.getMyWork()
+        this.posts = []
+        this.posts.push(...myWork.myThreads)
+        this.posts.push(...myWork.myComments)
+      })
+    } catch (e) {
+      console.log(e)
+    }
   },
   methods: {
     handleClick(value) {
