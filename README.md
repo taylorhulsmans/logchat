@@ -2,6 +2,7 @@
 Comment Sections that are Uncensorable, Consistent, and Pricier to AI ChatBot Swarm.
 
 live at https://etherscan.io/address/0xE53348b65fe575C561F47ce79Bf2C55E07881bba
+and for magnitudes cheaper at https://cchain.explorer.avax.network/address/0x8E06B7F7305dD03A0c8F15DfC2Dab3ec889B6F44/contracts
 ## Basic Usage
 ![how-to-use](https://github.com/Joe-mcgee/Hashed-Comments/blob/master/web/src/assets/Basic-usage.gif)
 
