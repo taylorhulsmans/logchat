@@ -25,7 +25,7 @@
         cols="12"
       >
         <h2 class="headline font-weight-bold mb-3">
-          Instructions (Ethereum) (Pricier)
+          Instructions (Avalanche) (Cheaper)
         </h2>
 
         <v-row justify="center">
@@ -41,7 +41,7 @@
         </v-row>
         <br />
         <h2 class="headline font-weight-bold mb-3">
-          Instructions (Avalanche) (Cheaper)
+          Instructions (Ethereum) (More Botnet Resistance)
         </h2>
 
         <v-row justify="center">
