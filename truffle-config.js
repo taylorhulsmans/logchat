@@ -73,6 +73,23 @@ module.exports = {
       timeoutBlocks: 200,
       gas: 3000000,
       gasPrice: 21180339000
+    },
+    'matic': {
+      provider: () => new HDWalletProvider(memnonic, `https://rpc-mainnet.maticvigil.com`),
+      network_id: 137,
+      timeoutBlocks: 200,
+      skipDryRun: true,
+      gas: 3000000,
+      gasPrice: 21180339000
+    },
+    'avalanche': {
+      provider: () => new HDWalletProvider(memnonic, 'https://api.avax.network/ext/bc/C/rpc'),
+      network_id: 1,
+      chain_id: 43114,
+      timoutBlocks: 200,
+      skipDryRun: true,
+      gas: 3000000,
+      gasPrice: 225000000000
     }
     // Another network with more advanced options...
     // advanced: {

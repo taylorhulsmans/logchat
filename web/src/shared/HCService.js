@@ -21,19 +21,26 @@ export async function getContractAddr() {
   }
 }
 
-export async function getCurrentNetwork(chainId) {
-  let id;
-  if (chainId) {
-   id = web3.utils.hexToNumberString(chainId)
+export async function getCurrentNetwork(networkId) {
+  const chainId =  await web3.eth.getChainId()
+  let netId;
+  if (networkId) {
+   netId = web3.utils.hexToNumberString(networkId)
   } else {
-    id = window.ethereum.networkVersion
+    netId = window.ethereum.networkVersion
   }
-  console.log(id)
-  switch (id) {
+  console.log(netId)
+  switch (netId) {
     case '1':
+      if (chainId === 0x1) return 'Ethereum'
+      if (chainId === 43114) return 'Avalanche'
       return 'Ethereum';
     case '56':
-      return 'BSC';
+      return 'BSC(buggy)';
+    case '137':
+      return 'Polygon (Matic)(buggy)';
+    case '43114':
+      return 'Avalanche';
     case '1337':
       return 'Dev';
     default:
@@ -148,6 +155,7 @@ export async function getThread(threadId) {
     toBlock: 'latest',
     filter: {id: threadId}
   }, (err, result) => {
+    console.log(result)
     if (!err) {
       thread = {
         creator: result[0].returnValues.creator,
