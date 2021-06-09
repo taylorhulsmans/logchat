@@ -13,9 +13,15 @@ export async function getInstance() {
 
 export async function getContractAddr() {
   try {
-
+    let address;
     const networkId = await web3.eth.net.getId()
-    return HashedComments.networks[networkId].address
+    const chainId = await web3.eth.getChainId()
+    address = HashedComments.networks[networkId].address
+    console.log(address)
+    if (chainId === 1) address = process.env.VUE_APP_ETHEREUM_ADDR
+    if (chainId === 43114) address = HashedComments.networks[networkId].address
+    console.log(address)
+    return address
   } catch (e) {
     return e
   }
@@ -29,7 +35,6 @@ export async function getCurrentNetwork(networkId) {
   } else {
     netId = window.ethereum.networkVersion
   }
-  console.log(netId)
   switch (netId) {
     case '1':
       if (chainId === 0x1) return 'Ethereum'
@@ -281,6 +286,7 @@ export async function getMyWork() {
         threadId: event.returnValues.threadId
       }
     })
+    console.log(myThreads, myComments)
     return {
       myThreads,
       myComments
