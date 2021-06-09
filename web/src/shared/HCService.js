@@ -36,7 +36,7 @@ export async function getCurrentNetwork(networkId) {
       if (chainId === 43114) return 'Avalanche'
       return 'Ethereum';
     case '56':
-      return 'BSC(buggy)';
+      return 'BSC (buggy)';
     case '137':
       return 'Polygon (Matic)(buggy)';
     case '43114':

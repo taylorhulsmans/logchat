@@ -99,7 +99,20 @@ export default {
     console.log(e)
   }
     const address = await HCService.getContractAddr()
-    this.etherscan = `https://etherscan.io/address/${address}`
+    switch (this.currentNetwork) {
+      case 'Ethereum':
+        this.etherscan = `https://etherscan.io/address/${address}`
+        break
+      case 'Avalanche':
+        this.etherscan = `https://cchain.explorer.avax.network/address/${address}/contracts`
+        break
+      case 'BSC (buggy)':
+        this.etherscan = `https://bscscan.com/address/${address}`
+        break
+      case 'Polygon (Matic)(buggy)':
+        this.etherscan = `https://polygon-explorer-mainnet.chainstacklabs.com/address/${address}/transactions`
+        break
+    }
   }
 };
 </script>

@@ -25,12 +25,28 @@
         cols="12"
       >
         <h2 class="headline font-weight-bold mb-3">
-          Instructions
+          Instructions (Ethereum) (Pricier)
         </h2>
 
         <v-row justify="center">
           <a
             v-for="(next, i) in whatsNext"
+            :key="i"
+            :href="next.href"
+            class="subheading mx-3"
+            target="_blank"
+          >
+            {{ next.text }}
+          </a>
+        </v-row>
+        <br />
+        <h2 class="headline font-weight-bold mb-3">
+          Instructions (Avalanche) (Cheaper)
+        </h2>
+
+        <v-row justify="center">
+          <a
+            v-for="(next, i) in whatsNextTwo"
             :key="i"
             :href="next.href"
             class="subheading mx-3"
@@ -113,7 +129,8 @@ import * as HCService from '@/shared/HCService.js'
           href: ``,
         },
       ],
-      whatsNext: [
+
+      whatsNextTwo: [
         {
           text: 'Install Metamask',
           href: 'https://metamask.io/',
@@ -125,6 +142,32 @@ import * as HCService from '@/shared/HCService.js'
         {
           text: 'Get a little ETH',
           href: 'https://ethereum.org/en/get-eth/',
+        },
+        {
+          text: 'Basic Usage',
+          href: '/how-to',
+        },
+      ],
+      whatsNext: [
+        {
+          text: 'Create an Avalanche Wallet',
+          href: 'https://wallet.avax.network/',
+        },
+        {
+          text: 'Buy some AVAX from an exchange and Send to Wallet',
+          href: 'https://coinmarketcap.com/currencies/avalanche/markets/',
+        },
+        {
+          text: 'Install Metamask',
+          href: 'https://metamask.io/',
+        },
+        {
+          text: 'Send C-Chain AVAX to Metamask',
+          href: 'https://support.avax.network/en/articles/4626956-how-do-i-set-up-metamask-on-avalanche',
+        },
+        {
+          text: 'Lurking: Browse Recent Threads',
+          href: '/recent',
         },
         {
           text: 'Basic Usage',
