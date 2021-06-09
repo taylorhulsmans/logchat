@@ -4,8 +4,8 @@ const web3 = new Web3(window.ethereum)
 
 export async function getInstance() {
   try {
-    const networkId = await web3.eth.net.getId() 
-    return await new web3.eth.Contract(HashedComments.abi, HashedComments.networks[networkId].address)
+    const address = await getContractAddr()
+    return await new web3.eth.Contract(HashedComments.abi, address)
   } catch (e) {
     return e
   }
