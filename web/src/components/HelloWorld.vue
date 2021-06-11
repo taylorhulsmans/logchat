@@ -25,6 +25,22 @@
         cols="12"
       >
         <h2 class="headline font-weight-bold mb-3">
+          Instructions (Fantom Opera) (Even Cheaper)
+        </h2>
+
+        <v-row justify="center">
+          <a
+            v-for="(next, i) in whatsNextFantom"
+            :key="i"
+            :href="next.href"
+            class="subheading mx-3"
+            target="_blank"
+          >
+            {{ next.text }}
+          </a>
+        </v-row>
+        <br />
+        <h2 class="headline font-weight-bold mb-3">
           Instructions (Avalanche) (Cheaper)
         </h2>
 
@@ -127,6 +143,29 @@ import * as HCService from '@/shared/HCService.js'
         {
           text: 'Etherscan',
           href: ``,
+        },
+      ],
+      whatsNextFantom: [
+
+        {
+          text: 'Get a little Fantom',
+          href: 'https://fantom.foundation/where-to-buy-ftm/',
+        },
+        {
+          text: 'Install Metamask',
+          href: 'https://metamask.io/',
+        },
+        {
+          text: 'Add Fantom (opera) to Metamask',
+          href: 'https://docs.fantom.foundation/tutorials/set-up-metamask',
+        },
+        {
+          text: 'Lurking: Browse Recent Threads',
+          href: '/recent',
+        },
+        {
+          text: 'Basic Usage',
+          href: '/how-to',
         },
       ],
 

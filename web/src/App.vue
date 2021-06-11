@@ -112,6 +112,9 @@ export default {
       case 'Polygon (Matic)(buggy)':
         this.etherscan = `https://polygon-explorer-mainnet.chainstacklabs.com/address/${address}/transactions`
         break
+      case 'Fantom Opera':
+        this.etherscan = `https://ftmscan.com/address/${address}`
+        break
     }
   }
 };
