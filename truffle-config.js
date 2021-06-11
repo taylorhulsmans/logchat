@@ -45,27 +45,27 @@ module.exports = {
     // tab if you use this network and you must also set the `host`, `port` and `network_id`
     // options below to some value.
     //
-     development: {
+    development: {
       host: "127.0.0.1",     // Localhost (default: none)
       port: 8545,            // Standard Ethereum port (default: none)
       network_id: "*",       // Any network (default: none)
-     },
-			ropsten: {
-				provider: () => new HDWalletProvider(memnonic, `https://ropsten.infura.io/v3/${process.env.INFURA_KEY}`),
-				network_id: 3,
-				gas: 5500000,
-				confirmations: 2,
-				timeoutBlocks: 200,
-				skipDryRun: true
-			},
+    },
+    ropsten: {
+      provider: () => new HDWalletProvider(memnonic, `https://ropsten.infura.io/v3/${process.env.INFURA_KEY}`),
+      network_id: 3,
+      gas: 5500000,
+      confirmations: 2,
+      timeoutBlocks: 200,
+      skipDryRun: true
+    },
 
-			"mainnet-infura": {
-				provider: () => new HDWalletProvider(memnonic, `https://mainnet.infura.io/v3/${process.env.INFURA_KEY}`),
-				network_id: 1,
-				gas: 3000000,
-				gasPrice: 21180339000
+    "mainnet-infura": {
+      provider: () => new HDWalletProvider(memnonic, `https://mainnet.infura.io/v3/${process.env.INFURA_KEY}`),
+      network_id: 1,
+      gas: 3000000,
+      gasPrice: 21180339000
 
-      },
+    },
     'bsc': {
       provider: () => new HDWalletProvider(memnonic, 'https://bsc-dataseed1.binance.org'),
       network_id: 56,
@@ -90,7 +90,14 @@ module.exports = {
       skipDryRun: true,
       gas: 3000000,
       gasPrice: 225000000000
-    }
+    },
+    'fantom': {
+      provider: () => new HDWalletProvider(memnonic, 'https://rpcapi.fantom.network/'),
+      network_id: 250,
+      skipDryRun: true,
+      gas: 3000000,
+      gasPrice: 225000000000
+    },
     // Another network with more advanced options...
     // advanced: {
     // port: 8777,             // Custom port

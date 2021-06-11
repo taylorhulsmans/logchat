@@ -48,6 +48,8 @@ export async function getCurrentNetwork(networkId) {
       return 'Avalanche';
     case '1337':
       return 'Dev';
+    case '250':
+      return 'Fantom Opera'
     default:
       return 'Unsupported'
   }
