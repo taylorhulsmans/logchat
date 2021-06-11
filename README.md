@@ -2,7 +2,7 @@
 Comment Sections that are Uncensorable, Consistent, and Pricier to AI ChatBot Swarm.
 
 | Network  | Cost per Post (est)   | Etherscan   |
-|---|---|---|---|---|
+|---|---|---|
 | Ethereum  | ~$2.50   | https://etherscan.io/address/0xE53348b65fe575C561F47ce79Bf2C55E07881bba |
 | Avalanche  | ~$0.10   | https://cchain.explorer.avax.network/address/0x8E06B7F7305dD03A0c8F15DfC2Dab3ec889B6F44/contracts |
 | Fantom   | ~$0.0007   | https://ftmscan.com/address/0x8e06b7f7305dd03a0c8f15dfc2dab3ec889b6f44#code |
