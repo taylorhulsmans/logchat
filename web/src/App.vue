@@ -80,7 +80,8 @@
 </template>
 
 <script>
-import * as HCService from '@/shared/HCService.js'
+import { mapState } from 'vuex';
+
 export default {
   name: 'App',
 
@@ -89,33 +90,22 @@ export default {
     currentNetwork: '',
     //
   }),
+  async mounted() {
+      await this.$store.dispatch('connectToBlockchain')
+  },
   async created() {
-    this.currentNetwork = await HCService.getCurrentNetwork()
-  try {
-    window.ethereum.on('chainChanged', async (chainId)  => {
-      this.currentNetwork = await HCService.getCurrentNetwork(chainId)
-    })
-  } catch (e) {
-    console.log(e)
-  }
-    const address = await HCService.getContractAddr()
-    switch (this.currentNetwork) {
-      case 'Ethereum':
-        this.etherscan = `https://etherscan.io/address/${address}`
-        break
-      case 'Avalanche':
-        this.etherscan = `https://cchain.explorer.avax.network/address/${address}/contracts`
-        break
-      case 'BSC (buggy)':
-        this.etherscan = `https://bscscan.com/address/${address}`
-        break
-      case 'Polygon (Matic)(buggy)':
-        this.etherscan = `https://polygon-explorer-mainnet.chainstacklabs.com/address/${address}/transactions`
-        break
-      case 'Fantom Opera':
-        this.etherscan = `https://ftmscan.com/address/${address}`
-        break
+    try {
+      window.ethereum.on('chainChanged', async ()  => {
+        await this.$store.dispatch('connectToBlockchain')
+      })
+    } catch (e) {
+      console.log(e)
     }
+  },
+  computed: {
+    ...mapState([
+      'networkName'
+    ])
   }
 };
 </script>

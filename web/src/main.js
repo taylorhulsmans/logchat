@@ -3,8 +3,10 @@ import App from './App.vue'
 import router from './router'
 import vuetify from './plugins/vuetify'
 
+import store from './store'
 Vue.config.productionTip = false
 
+/*
 window.addEventListener('load', async function () {
   try {
     return await window.ethereum.request({
@@ -14,9 +16,11 @@ window.addEventListener('load', async function () {
     console.log(e)
   }
 })
+*/
 
 Vue.prototype.$vueEventBus = new Vue();
 new Vue({
+  store,
   router,
   vuetify,
   render: h => h(App)
