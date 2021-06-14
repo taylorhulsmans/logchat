@@ -88,10 +88,8 @@ export default {
   data: () => ({
     //
   }),
-  async beforeCreated() {
-      await this.$store.dispatch('connectToBlockchain')
-  },
   async created() {
+    await this.$store.dispatch('connectToBlockchain')
     try {
       window.ethereum.on('chainChanged', async ()  => {
         await this.$store.dispatch('connectToBlockchain')
