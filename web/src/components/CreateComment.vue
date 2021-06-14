@@ -41,6 +41,7 @@
 </template>
 <script>
 import * as HCService from '@/shared/HCService.js'
+import Web3 from 'web3'
 export default {
   props: {
     threadId: String,
@@ -62,11 +63,12 @@ export default {
       if (this.valid) {
         this.mining = true;
         console.log(this.replyId)
+        const web3 = new  Web3(window.ethereum)
         const commentTx = await HCService.createComment(
           this.$store.state.account,
           this.$store.state.contract,
           this.threadId,
-          this.replyId ? this.replyId : HCService.getBytes32FromString(''),
+          this.replyId ? this.replyId : web3.utils.asciiToHex(''),
           this.content
         );
         console.log(commentTx)

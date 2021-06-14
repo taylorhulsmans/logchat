@@ -165,7 +165,6 @@
 </v-container>
 </template>
 <script>
-import * as HCService from '@/shared/HCService.js'
 import CreateComment from '@/components/CreateComment'
 
 export default {
@@ -194,7 +193,7 @@ export default {
       com.showReplyBox = false
       return com
     })
-    const contract = await HCService.getInstance()
+    const contract = this.$store.state.contract
     await contract.events.Comment({
       fromBlock: 'earliest',
       filter: {threadId: this.threadId}
