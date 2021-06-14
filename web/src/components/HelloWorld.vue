@@ -112,7 +112,6 @@
 </template>
 
 <script>
-import * as HCService from '@/shared/HCService.js'
   export default {
     name: 'HelloWorld',
 
@@ -135,15 +134,7 @@ import * as HCService from '@/shared/HCService.js'
         {
           text: 'Litepaper',
           href: '/about',
-        },
-        {
-          text: 'Github',
-          href: 'https://github.com/joe-mcgee/hashed-comments',
-        },
-        {
-          text: 'Etherscan',
-          href: ``,
-        },
+        }
       ],
       whatsNextFantom: [
 
@@ -214,10 +205,6 @@ import * as HCService from '@/shared/HCService.js'
         },
       ],
       contractAddr: ''
-    }),
-    async created() {
-      const contractAddr = await HCService.getContractAddr()
-      this.importantLinks[2].href = `https://etherscan.io/address/${contractAddr}`
-    }
+    })
   }
 </script>

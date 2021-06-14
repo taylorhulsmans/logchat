@@ -9,7 +9,6 @@
   </v-container>
 </template>
 <script>
-import * as HCService from '@/shared/HCService.js'
 export default {
   data: () => ({
     headers: [
@@ -24,20 +23,19 @@ export default {
     posts: [],
   }),
   async created() {
-    const myWork = await HCService.getMyWork()
+    const myWork = await this.$store.dispatch('setMyWork')
+    console.log(myWork)
     this.posts.push(...myWork.myThreads)
     this.posts.push(...myWork.myComments)
 
-    try {
       window.ethereum.on('chainChanged', async ()  => {
-        const myWork = await HCService.getMyWork()
+        await this.$store.dispatch('connectToBlockchain')
+        const myWork = await this.$store.dispatch('setMyWork')
+        console.log('chainchanged', myWork)
         this.posts = []
         this.posts.push(...myWork.myThreads)
         this.posts.push(...myWork.myComments)
       })
-    } catch (e) {
-      console.log(e)
-    }
   },
   methods: {
     handleClick(value) {

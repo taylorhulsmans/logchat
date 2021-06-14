@@ -9,7 +9,7 @@
   </v-container>
 </template>
 <script>
-import * as HCService from '@/shared/HCService.js'
+import { mapState } from 'vuex'
 export default {
   data: () => ({
     headers: [
@@ -22,30 +22,23 @@ export default {
       { text: 'URL', value: 'url' },
       { text: 'creator', value: 'creator' }
     ],
-    threads: [],
   }),
   async created() {
-    const threadsFromService= await HCService.getThreads()
-    this.threads = threadsFromService.map((thread) => {
-      thread.hover = false
-      return thread
+    this.$store.dispatch('getRecentThreads')
+    window.ethereum.on('chainChanged', async ()  => {
+      await this.$store.dispatch('connectToBlockchain')
+      await this.$store.dispatch('getRecentThreads')
     })
-    try {
-      window.ethereum.on('chainChanged', async ()  => {
-        const threadsFromService= await HCService.getThreads()
-        this.threads = threadsFromService.map((thread) => {
-          thread.hover = false
-          return thread
-        })
-      })
-    } catch (e) {
-      console.log(e)
-    }
   },
   methods: {
     handleClick(val) {
       this.$router.push(`/thread/${val.id}`)
     }
+  },
+  computed: {
+    ...mapState([
+      'threads'
+    ])
   }
   
 }
