@@ -182,8 +182,8 @@ export default {
     url: null,
 		comments: []
   }),
-  async created() {
-    const thread = await HCService.getThread(this.$route.params.id)
+  async mounted() {
+    const thread = await this.$store.dispatch('setThread', this.$route.params.id)
     this.threadId = thread[0].id
     this.url = thread[0].url
     this.creator = thread[0].creator

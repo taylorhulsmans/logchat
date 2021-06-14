@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Web3 from 'web3'
-Vue.use(Vuex)
 import HashedComments from '@/assets/build/HashedComments.json'
+
+Vue.use(Vuex)
 
 function getNetworkNameAndAddress(networkId, chainId) {
   console.log(networkId, chainId)
@@ -81,6 +82,9 @@ export default new Vuex.Store({
     contract: null,
     contractAddress: '',
     etherscan: '',
+    threads: [],
+    myWork: [],
+    thread: []
 
   },
   mutations: {
@@ -93,6 +97,16 @@ export default new Vuex.Store({
       state.contract = newState.contract
       state.contractAddress = newState.contractAddress
       state.etherscan = newState.etherscan
+    },
+    setThreads(state, threads) {
+      console.log(threads)
+      state.threads = threads
+    },
+    setThread(state, thread) {
+      state.thread = thread
+    },
+    setMyWork(state, myWork) {
+      state.myWork = myWork
     }
   },
   actions: {
@@ -125,9 +139,151 @@ export default new Vuex.Store({
       } catch (e) {
         console.log(e)
       }
+    },
+    async getRecentThreads({commit, state, dispatch}) {
+      let contract = state.contract;
+      if (!contract) {
+        await dispatch('connectToBlockchain') 
+        contract = state.contract
+      }
+      console.log(contract)
+      const threadEvents = await contract.getPastEvents('Thread', {
+        fromBlock: 'earliest',
+        toBlock: 'latest',
+      }, (err, result) => {
+        if (err) {
+          return err
+        }
+        return result
+      })
+      const threads = threadEvents.map((event) => {
+        const {
+          creator,
+          id,
+          url,
+          title,
+          content,
+        } = event.returnValues
+        return {
+          hover: false,
+          creator,
+          id,
+          url,
+          title,
+          content,
+        }
+      })
+      commit('setThreads', threads)
+      return threads
+    },
+    async setThread({commit, state, dispatch}, threadId) {
+      let contract = state.contract;
+      if (!contract) {
+        await dispatch('connectToBlockchain')
+        contract = state.contract
+      }
+      let thread = null
+      await contract.getPastEvents('Thread', {
+        fromBlock: 'earliest',
+        toBlock: 'latest',
+        filter: {id: threadId}
+      }, (err, result) => {
+        if (!err) {
+          thread = {
+            creator: result[0].returnValues.creator,
+            id: result[0].returnValues.id,
+            iUrl: result[0].returnValues.iUrl,
+            content: result[0].returnValues.content,
+            title: result[0].returnValues.title,
+            url: result[0].returnValues.url
+          }
+        } else {
+          return err
+        }
+      })
+      let comments = null;
+      await contract.getPastEvents('Comment', {
+        filter: {threadId: threadId},
+        fromBlock: 'earliest',
+        toBlock: 'latest'
+      }, (err, result) => {
+        if (!err) {
+          comments = result.map((event) => {
+            return {
+              showReplyBox: false,
+              creator: event.returnValues.creator,
+              id: event.returnValues.id,
+              replyId: event.returnValues.replyId,
+              threadId: event.returnValues.threadId,
+              content: event.returnValues.content
+            }
+          })
+        } else {
+          return err
+        }
+      })
+      commit('setThread',[thread, comments])
+      return [thread, comments]
+    },
+  async setMyWork({commit, state, dispatch}) {
+      let contract = state.contract;
+      if (!contract) {
+        await dispatch('connectToBlockchain')
+        contract = state.contract
+      }
+    const account = state.account
+    try {
+      const myThreadEvents = await contract.getPastEvents("Thread", {
+        fromBlock: 'earliest',
+        toBlock: 'latest',
+        filter: {creator: account}
+      }, (err, result) => {
+        if (err) {
+          console.log(err)
+          return err
+        } else {
+          return result
+        }
+      })
+      const myCommentEvents = await contract.getPastEvents("Comment", {
+        fromBlock: 'earliest',
+        toBlock: 'latest',
+        filter: {creator: account}
+      }, (err, result) => {
+        if (err) {
+          return err
+        } else {
+          return result
+        }
+      })
+      const myThreads = myThreadEvents.map((event) => {
+        return {
+          postType: 'Thread',
+          threadId: event.returnValues.id,
+          title: event.returnValues.title
+        }
+      })
+      const myComments = myCommentEvents.map((event) => {
+        return {
+          postType: 'Comment',
+          threadId: event.returnValues.threadId
+        }
+      })
+      console.log(myThreads, myComments)
+      commit('setMyWork', {myThreads, myComments})
+      return {
+        myThreads,
+        myComments
+      }
 
+    } catch (e) {
+      return e
     }
   },
-  modules: {
+  },
+  getters: {
+    getThread: (state) => {
+      return state.thread
+    }
   }
 })

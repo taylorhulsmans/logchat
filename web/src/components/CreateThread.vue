@@ -93,6 +93,8 @@ export default {
       if (this.valid) {
         this.mining = true;
         const threadTx = await HCService.createThread(
+          this.$store.state.account,
+          this.$store.state.contract,
           this.url,
           this.title,
           this.content

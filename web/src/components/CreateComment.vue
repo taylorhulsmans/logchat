@@ -63,6 +63,8 @@ export default {
         this.mining = true;
         console.log(this.replyId)
         const commentTx = await HCService.createComment(
+          this.$store.state.account,
+          this.$store.state.contract,
           this.threadId,
           this.replyId ? this.replyId : HCService.getBytes32FromString(''),
           this.content

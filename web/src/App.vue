@@ -38,7 +38,7 @@
         <v-icon left>
           mdi-link-lock
         </v-icon>
-        {{currentNetwork}}
+        {{networkName}}
       </v-chip>
       <v-btn
         icon
@@ -86,11 +86,9 @@ export default {
   name: 'App',
 
   data: () => ({
-    etherscan: '',
-    currentNetwork: '',
     //
   }),
-  async mounted() {
+  async beforeCreated() {
       await this.$store.dispatch('connectToBlockchain')
   },
   async created() {
@@ -104,7 +102,8 @@ export default {
   },
   computed: {
     ...mapState([
-      'networkName'
+      'networkName',
+      'etherscan'
     ])
   }
 };
