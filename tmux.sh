@@ -9,6 +9,8 @@ tmux new-session -s $SESSIONNAME \; \
 	split-window -v \; \
 	send-keys "cd web && npm run serve" C-m \; \
 	split-window -h \; \
+	send-keys "cd extension && npm run serve" C-m \; \
+	split-window -h \; \
 	send-keys "ganache-cli -i 1337 -b ${BLOCKSPEED}  --gasLimit=${GASLIMIT}  -m ${MEMNONIC}" C-m \; \
 
 

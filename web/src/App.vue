@@ -11,7 +11,7 @@
     <v-app-bar
       absolute
       app
-      :src="require('@/assets/background-logo-optimized.gif')"
+      :src="banner"
       color="#6A76AB"
       dark
       shrink-on-scroll
@@ -86,9 +86,12 @@ export default {
   name: 'App',
 
   data: () => ({
+    banner: null,
     //
   }),
   async created() {
+    this.getBanner()
+    window.addEventListener("resize", this.getBanner)
     await this.$store.dispatch('connectToBlockchain')
     try {
       window.ethereum.on('chainChanged', async ()  => {
@@ -103,6 +106,36 @@ export default {
       'networkName',
       'etherscan'
     ])
+  },
+  methods: {
+    getBanner() {
+      const val = window.innerWidth
+      console.log(val)
+      if (val <= 485) {
+        this.banner =  require('@/assets/hashed-comments-animated.gif')
+        return
+      } 
+      if (val <= 600) {
+        console.log('test')
+        this.banner =  require('@/assets/hashed-comments-banner-sm.gif')
+        console.log(this.banner)
+        return
+      } 
+      if (val <= 945) {
+        console.log('test')
+        this.banner =  require('@/assets/hashed-comments-banner-md.gif')
+        console.log(this.banner)
+        return
+      } 
+      if (val <= 1500) {
+        this.banner =  require('@/assets/hashed-comments-banner-md.gif')
+        return
+      } 
+      if (val > 1500) {
+        this.banner =  require('@/assets/hashed-comments-banner-xl.gif')
+        return
+      } 
+    }
   }
 };
 </script>
