@@ -1,5 +1,5 @@
 DIR=${pwd}
-SESSIONNAME=HashedComments
+SESSIONNAME=LogChat
 MEMNONIC=$(grep MEMNONIC .env | cut -d '=' -f 2-)
 BLOCKSPEED=0
 GASLIMIT=8000000

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import vuetify from '../plugins/vuetify'
+//import * as HCService from '@/shared/HCService.js'
 /* eslint-disable no-new */
 new Vue({
   vuetify,
@@ -9,21 +10,30 @@ new Vue({
 })
 
 
+document.addEventListener("init", () => {
+  console.log(window.location.href)
+})
+
 document.getElementById('openComments').addEventListener('click', () => {
   chrome.tabs.executeScript({
     file: 'js/content-script.js'
   })
   chrome.storage.local.set({isCommentsOpen: true}, () => {
-    console.log('a')
   })
-    console.log('b')
 })
 document.getElementById('closeComments').addEventListener('click', () => {
   chrome.tabs.executeScript({
-    code: "document.getElementById('hashed-comments-app').remove()"
+    code: "document.getElementById('log-chat-app').remove()"
   })
   chrome.storage.local.set({isCommentsOpen: false}, () => {
-    console.log('a')
   })
-  
+})
+document.getElementById('createThread').addEventListener('click', () => {
+  chrome.storage.local.set({
+    createThreadBox: true
+  }, () => {
+    chrome.tabs.executeScript({
+      file: 'js/content-script.js'
+    })
+  })
 })

@@ -1,6 +1,6 @@
 pragma solidity 0.8.4;
 
-contract HashedComments {
+contract LogChat {
   event Thread (
     address indexed creator,
     bytes32 indexed id,

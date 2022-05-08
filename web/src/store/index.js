@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Web3 from 'web3'
-import HashedComments from '@/assets/build/HashedComments.json'
+import LogChat from '@/assets/build/LogChat.json'
 
 Vue.use(Vuex)
 
@@ -18,7 +18,7 @@ function getNetworkNameAndAddress(networkId, chainId) {
         }
       }
       if (chainId === 43114) {
-        const contractAddress =  HashedComments.networks[networkId].address
+        const contractAddress =  LogChat.networks[networkId].address
         return {
           networkName: 'Avalanche',
           contractAddress,
@@ -31,7 +31,7 @@ function getNetworkNameAndAddress(networkId, chainId) {
         etherscan: `https://etherscan.io/address/${process.env.VUE_APP_ETHEREUM_ADDR}`
       }
     case 56: {
-        const contractAddress =  HashedComments.networks[networkId].address
+        const contractAddress =  LogChat.networks[networkId].address
         return {
           networkName: 'BSC (buggy)',
           contractAddress,
@@ -39,7 +39,7 @@ function getNetworkNameAndAddress(networkId, chainId) {
         }
     }
     case 137: {
-        const contractAddress =  HashedComments.networks[networkId].address
+        const contractAddress =  LogChat.networks[networkId].address
         return {
           networkName: 'Polygon (Matic)[buggy]',
           contractAddress,
@@ -47,7 +47,7 @@ function getNetworkNameAndAddress(networkId, chainId) {
         }
     }
     case 1337: {
-        const contractAddress =  HashedComments.networks[networkId].address
+        const contractAddress =  LogChat.networks[networkId].address
         return {
           networkName: 'Ganache Dev',
           contractAddress,
@@ -55,7 +55,7 @@ function getNetworkNameAndAddress(networkId, chainId) {
         }
     }
     case 250: {
-        const contractAddress =  HashedComments.networks[networkId].address
+        const contractAddress =  LogChat.networks[networkId].address
         return {
           networkName: 'Fantom (Opera)',
           contractAddress,
@@ -126,7 +126,7 @@ export default new Vuex.Store({
           etherscan
         } = getNetworkNameAndAddress(networkId, chainId)
         
-        const contract = await new web3.eth.Contract(HashedComments.abi, contractAddress)
+        const contract = await new web3.eth.Contract(LogChat.abi, contractAddress)
         commit('setWeb3Enabled', {
           account,
           networkId,

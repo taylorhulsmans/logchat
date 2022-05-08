@@ -6,7 +6,7 @@
       app
       height="33">
       <v-icon>mdi-alert</v-icon>
-      <span>HashedComments is Beta, please use at your own risk</span>
+      <span>Log Chat is Beta, please use at your own risk</span>
     </v-system-bar>
     <v-app-bar
       absolute
@@ -27,7 +27,7 @@
 
       <v-app-bar-nav-icon style="display:none;"></v-app-bar-nav-icon>
 
-      <v-app-bar-title>Hashed Comments</v-app-bar-title>
+      <v-app-bar-title>Log Chat</v-app-bar-title>
 
       <v-spacer></v-spacer>
       <v-chip
@@ -42,7 +42,7 @@
       </v-chip>
       <v-btn
         icon
-        href="https://github.com/Joe-mcgee/Hashed-Comments"
+        href="https://github.com/taylorhulsmans/logchat"
         target="_blank">
         <v-icon>mdi-github</v-icon>
       </v-btn>
@@ -112,27 +112,27 @@ export default {
       const val = window.innerWidth
       console.log(val)
       if (val <= 485) {
-        this.banner =  require('@/assets/hashed-comments-animated.gif')
+        //this.banner =  require('@/assets/log-chat-animated.gif')
         return
       } 
       if (val <= 600) {
         console.log('test')
-        this.banner =  require('@/assets/hashed-comments-banner-sm.gif')
+        //this.banner =  require('@/assets/log-chat-banner-sm.gif')
         console.log(this.banner)
         return
       } 
       if (val <= 945) {
         console.log('test')
-        this.banner =  require('@/assets/hashed-comments-banner-md.gif')
+        //this.banner =  require('@/assets/log-chat-banner-md.gif')
         console.log(this.banner)
         return
       } 
       if (val <= 1500) {
-        this.banner =  require('@/assets/hashed-comments-banner-md.gif')
+        //this.banner =  require('@/assets/log-chat-banner-md.gif')
         return
       } 
       if (val > 1500) {
-        this.banner =  require('@/assets/hashed-comments-banner-xl.gif')
+        //this.banner =  require('@/assets/log-chat-banner-xl.gif')
         return
       } 
     }

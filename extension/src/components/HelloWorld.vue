@@ -1,7 +1,14 @@
 <template>
   <v-container>
     <v-btn
-      v-show="!isCommentsOpen"
+      v-show="!isThreadCreated"
+      id="createThread"
+      @click="isThreadCreated = !isThreadCreated"
+      >
+      Create Thread 
+    </v-btn>
+    <v-btn
+      v-show="!isCommentsOpen && isThreadCreated"
       id="openComments"
       @click="isCommentsOpen = !isCommentsOpen"
       >
@@ -18,20 +25,28 @@
 </template>
 
 <script>
+import * as HCService from '@/shared/HCService.js'
   export default {
     name: 'HelloWorld',
 
     data: () => ({
+      isThreadCreated: false,
       isCommentsOpen: false,
+      thread: null,
     }),
     created() {
-      document.addEventListener("DOMContentLoaded", () => {
-        chrome.storage.local.get(['isCommentsOpen'], (res) => {
-          console.log(res, 'res')
-          this.isCommentsOpen =  res.isCommentsOpen
-        console.log(this.isCommentsOpen)
-        })
+      chrome.tabs.query({
+        currentWindow: true,
+        active: true
+      }, async (tabs) => {
+        const url = tabs[0].url
+        this.thread = await HCService.getThreadByUrl(url)
+        console.log(this.thread)
+        console.log(url)
+
       })
+    },
+    methods: {
     }
   }
 </script>
